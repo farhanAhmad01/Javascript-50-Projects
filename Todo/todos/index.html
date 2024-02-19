@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+  </head>
+  <body>
+    <div>
+      <h1>Todolist</h1>
+      <input type="text" id="input" />
+      <button onclick="addTodo()">Add</button>
+      <ul id="todoList"></ul>
+    </div>
+    <script>
+      let todos = [];
+      function addTodo() {
+        let input = document.getElementById("input");
+        let todoText = input.value.trim();
+
+        todos.push(todoText);
+        console.log(todos);
+        displayTodo();
+        input.value = "";
+      }
+
+      function deleteTodo(index) {
+        todos.splice(index, 1);
+        displayTodo();
+      }
+
+      function displayTodo() {
+        // console.log(todos)
+        let todoList = document.getElementById("todoList");
+        todoList.innerHTML = ''
+
+        todos.forEach((todo, index) => {
+          let list = document.createElement("li");
+          list.textContent = todo;
+
+          let deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.onclick = function () {
+            deleteTodo(index);
+          };
+          console.log(todo);
+          list.appendChild(deleteButton);
+          todoList.appendChild(list);
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="input" />
+      <button onclick="addTodo()">Add</button>
+      <ul id="todoList"></ul>
+    </div>
+    <script>
+      let todos = [];
+
+      function addTodo() {
+        let input = document.getElementById("input");
+        let todoText = input.value.trim();
+
+          todos.push(todoText);
+          input.value = "";
+          displayTodo();
+      }
+
+      function deleteTodo(index) {
+        todos.splice(index,2);
+        displayTodo();
+      }
+
+      function displayTodo() {
+        let todoList = document.getElementById("todoList");
+        todoList.innerHTML = "";
+
+        todos.forEach((todo, index) => {
+          let listItem = document.createElement("li");
+          listItem.textContent = todo;
+
+          let deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.onclick = function () {
+            deleteTodo(index);
+          };
+
+          listItem.appendChild(deleteButton);
+          todoList.appendChild(listItem);
+        });
+      }
+    </script>
+  </body>
+</html> -->

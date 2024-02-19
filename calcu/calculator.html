@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <title>Calculator</title>
+    <style>
+      #display {
+        background-color: lightgray;
+        height: 50px;
+        font-size: 20px;
+        text-align: right;
+        padding-right: 10px;
+        padding-top: 10px;
+        border: solid black 1px;
+      }
+      button {
+        width: 70px;
+        height: 70px;
+        font-size: 20px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="calculator">
+      <div id="display">0</div>
+      <button id="clear">C</button>
+      <button id="divide">/</button>
+      <button id="seven">7</button>
+      <button id="eight">8</button>
+      <button id="nine">9</button>
+      <button id="multiply">*</button>
+      <button id="four">4</button>
+      <button id="five">5</button>
+      <button id="six">6</button>
+      <button id="subtract">-</button>
+      <button id="one">1</button>
+      <button id="two">2</button>
+      <button id="three">3</button>
+      <button id="add">+</button>
+      <button id="zero">0</button>
+      <button id="decimal">.</button>
+      <button id="equals">=</button>
+    </div>
+    <script>
+      const calculator = {
+        displayValue: "0",
+        firstOperand: null,
+        waitingForSecondOperand: false,
+        operator: null,
+      };
+
+      const updateDisplay = () => {
+        const display = document.querySelector("#display");
+        display.textContent = calculator.displayValue;
+      };
+
+      const inputDigit = (digit) => {
+        const { displayValue, waitingForSecondOperand } = calculator;
+        if (waitingForSecondOperand === true) {
+          calculator.displayValue = digit;
+          calculator.waitingForSecondOperand = false;
+        } else {
+          calculator.displayValue =
+            displayValue === "0" ? digit : displayValue + digit;
+        }
+      };
+
+      const handleOperator = (nextOperator) => {
+        const { firstOperand, displayValue, operator } = calculator;
+        const inputValue = parseFloat(displayValue);
+
+        if (operator && calculator.waitingForSecondOperand) {
+          calculator.operator = nextOperator;
+          return;
+        }
+
+        if (firstOperand == null) {
+          calculator.firstOperand = inputValue;
+        } else if (operator) {
+          const currentValue = firstOperand || 0;
+          const result = performCalculation[operator](currentValue, inputValue);
+
+          calculator.displayValue = String(result);
+          calculator.firstOperand = result;
+        }
+
+        calculator.waitingForSecondOperand = true;
+        calculator.operator = nextOperator;
+      };
+
+      const performCal s;
+
+
+      
